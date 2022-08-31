@@ -744,6 +744,5 @@ passed
 --- request
 GET /hello
 --- response_body
-''
 --- no_error_log
 [error]

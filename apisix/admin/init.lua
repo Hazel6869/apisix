@@ -47,10 +47,8 @@ local resources = {
     upstreams       = require("apisix.admin.upstreams"),
     consumers       = require("apisix.admin.consumers"),
     schema          = require("apisix.admin.schema"),
-    ssl             = require("apisix.admin.ssl"),
     ssls            = require("apisix.admin.ssl"),
     plugins         = require("apisix.admin.plugins"),
-    proto           = require("apisix.admin.proto"),
     protos          = require("apisix.admin.proto"),
     global_rules    = require("apisix.admin.global_rules"),
     stream_routes   = require("apisix.admin.stream_routes"),
@@ -194,7 +192,12 @@ local function run()
         else
             core.response.set_header("X-API-VERSION", "v2")
         end
+        if resource.need_v3_filter then
+            data = v3_adapter.filter(data)
+        end
+
         data = strip_etcd_resp(data)
+
         core.response.exit(code, data)
     end
 end

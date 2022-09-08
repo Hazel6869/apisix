@@ -167,7 +167,7 @@ decrypt ssl key failed
             end
 
             res = json.decode(res)
-            ngx.say(res.node.value.upstream.tls.client_key == ssl_key)
+            ngx.say(res.value.upstream.tls.client_key == ssl_key)
 
             -- upstream
             local data = {
@@ -203,7 +203,7 @@ decrypt ssl key failed
             end
 
             res = json.decode(res)
-            ngx.say(res.node.value.tls.client_key == ssl_key)
+            ngx.say(res.value.tls.client_key == ssl_key)
 
             local data = {
                 upstream = {
@@ -240,7 +240,7 @@ decrypt ssl key failed
             end
 
             res = json.decode(res)
-            ngx.say(res.node.value.upstream.tls.client_key == ssl_key)
+            ngx.say(res.value.upstream.tls.client_key == ssl_key)
         }
     }
 --- request
@@ -387,7 +387,7 @@ apisix:
             end
 
             res = json.decode(res)
-            ngx.say(res.node.value.upstream.tls.client_key == ssl_key)
+            ngx.say(res.value.upstream.tls.client_key == ssl_key)
 
             -- upstream
             local data = {
@@ -423,7 +423,7 @@ apisix:
             end
 
             res = json.decode(res)
-            ngx.say(res.node.value.tls.client_key == ssl_key)
+            ngx.say(res.value.tls.client_key == ssl_key)
 
             local data = {
                 upstream = {
@@ -460,7 +460,7 @@ apisix:
             end
 
             res = json.decode(res)
-            ngx.say(res.node.value.upstream.tls.client_key == ssl_key)
+            ngx.say(res.value.upstream.tls.client_key == ssl_key)
         }
     }
 --- request
@@ -562,7 +562,7 @@ hello world
                 cert = ssl_cert,
                 key = ssl_key
             }
-            local code, body = t.test('/apisix/admin/ssl/1',
+            local code, body = t.test('/apisix/admin/ssls/1',
                 ngx.HTTP_PUT,
                 json.encode(data)
             )
@@ -629,7 +629,7 @@ hello world
                 cert = ssl_cert,
                 key = ssl_key
             }
-            local code, body = t.test('/apisix/admin/ssl/1',
+            local code, body = t.test('/apisix/admin/ssls/1',
                 ngx.HTTP_PUT,
                 json.encode(data)
             )
@@ -664,7 +664,7 @@ failed to get ssl cert: ssl type should be 'client'
             local t = require("lib.test_admin")
             local json = require("toolkit.json")
 
-            local code, body = t.test('/apisix/admin/ssl/1', ngx.HTTP_DELETE)
+            local code, body = t.test('/apisix/admin/ssls/1', ngx.HTTP_DELETE)
 
             if code >= 300 then
                 ngx.status = code

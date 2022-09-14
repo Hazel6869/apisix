@@ -219,6 +219,8 @@ function _M.log(conf, ctx)
     broker_config["batch_size"] = conf.producer_batch_size
     broker_config["max_buffering"] = conf.producer_max_buffering
     broker_config["flush_time"] = conf.producer_time_linger * 1000
+    broker_config["ssl"] = conf.ssl
+    broker_config["ssl_verify"] = conf.ssl_verify
 
     local prod, err = core.lrucache.plugin_ctx(lrucache, ctx, nil, create_producer,
                                                broker_list, broker_config, conf.cluster_name)

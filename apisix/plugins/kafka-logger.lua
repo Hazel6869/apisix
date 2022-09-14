@@ -87,7 +87,9 @@ local schema = {
         producer_batch_num = {type = "integer", minimum = 1, default = 200},
         producer_batch_size = {type = "integer", minimum = 0, default = 1048576},
         producer_max_buffering = {type = "integer", minimum = 1, default = 50000},
-        producer_time_linger = {type = "integer", minimum = 1, default = 1}
+        producer_time_linger = {type = "integer", minimum = 1, default = 1},
+        ssl = {type = "boolean", default = false},
+        ssl_verify = {type = "boolean", default = false}
     },
     required = {"broker_list", "kafka_topic"}
 }

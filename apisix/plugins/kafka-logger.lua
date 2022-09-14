@@ -87,7 +87,9 @@ local schema = {
         producer_batch_num = {type = "integer", minimum = 1, default = 200},
         producer_batch_size = {type = "integer", minimum = 0, default = 1048576},
         producer_max_buffering = {type = "integer", minimum = 1, default = 50000},
-        producer_time_linger = {type = "integer", minimum = 1, default = 1}
+        producer_time_linger = {type = "integer", minimum = 1, default = 1},
+        ssl = {type = "boolean", default = false},
+        ssl_verify = {type = "boolean", default = false}
     },
     required = {"broker_list", "kafka_topic"}
 }
@@ -217,6 +219,8 @@ function _M.log(conf, ctx)
     broker_config["batch_size"] = conf.producer_batch_size
     broker_config["max_buffering"] = conf.producer_max_buffering
     broker_config["flush_time"] = conf.producer_time_linger * 1000
+    broker_config["ssl"] = conf.ssl
+    broker_config["ssl_verify"] = conf.ssl_verify
 
     local prod, err = core.lrucache.plugin_ctx(lrucache, ctx, nil, create_producer,
                                                broker_list, broker_config, conf.cluster_name)
